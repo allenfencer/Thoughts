@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:thoughts/features/auth/services/auth_service.dart';
 import 'package:thoughts/features/home/providers/notes_provider.dart';
+import 'package:thoughts/features/home/services/notes_service.dart';
 import 'package:thoughts/global_widgets/custom_shimmer.dart';
 import 'package:thoughts/utils/routes/app_route_constant.dart';
 import 'package:thoughts/utils/themes/themes.dart';
@@ -91,8 +92,8 @@ class HomeScreen extends ConsumerWidget {
             return ListView.builder(
                 itemCount: data.length,
                 itemBuilder: (context, index) {
-                  DateTime date = DateTime.parse(data[index]['created_at'] ??
-                      DateTime.now().toIso8601String());
+                  DateTime date =
+                      DateTime.parse(data[index]['created_at']).toLocal();
                   return Slidable(
                     closeOnScroll: true,
                     endActionPane:
@@ -100,7 +101,10 @@ class HomeScreen extends ConsumerWidget {
                       SlidableAction(
                         flex: 1,
                         label: 'Delete',
-                        onPressed: ((context) {}),
+                        onPressed: ((context) async {
+                          await NotesService()
+                              .deleteNote(noteId: data[index]['journal_id']);
+                        }),
                         backgroundColor: AppColors.warningRed,
                         icon: Icons.delete,
                       )
