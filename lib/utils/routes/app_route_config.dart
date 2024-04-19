@@ -15,7 +15,7 @@ class AppRouteConfig {
         name: AppRouteConstant.loginScreen,
         builder: (context, state) {
           final SupabaseClient supabase = Supabase.instance.client;
-          if (supabase.auth.currentSession == null) {
+          if (supabase.auth.currentSession?.isExpired ?? true) {
             return const LoginScreen();
           } else {
             return const HomeScreen();
