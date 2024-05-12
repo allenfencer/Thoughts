@@ -44,10 +44,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 const Text('Signup ', style: TT.f28w700),
                 const SizedBox(height: 25),
                 const Text(
-                  'Start capturing your ideas effortlessly - sign up now and let your notes find a home.',
+                  'Start capturing your ideas effortlessly\nsign up now and let your notes find a home.',
                   style: TT.f14w400,
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 CustomTextField(
                   label: 'Name',
                   editingController: nameController,

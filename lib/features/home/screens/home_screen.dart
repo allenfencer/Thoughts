@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
@@ -10,66 +12,64 @@ import 'package:thoughts/global_widgets/custom_shimmer.dart';
 import 'package:thoughts/utils/routes/app_route_constant.dart';
 import 'package:thoughts/utils/themes/themes.dart';
 
+import '../../../global_widgets/custom_button.dart';
+import '../../auth/providers/auth_providers.dart';
+
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final journalData = ref.watch(journalProvider);
+
     return Scaffold(
       backgroundColor: AppColors.brandWhite,
       appBar: AppBar(
         backgroundColor: AppColors.brandWhite,
-        leading: Builder(builder: (context) {
-          return GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        backgroundColor: AppColors.brandWhite,
-                        iconColor: AppColors.warningRed,
-                        alignment: Alignment.center,
-                        surfaceTintColor: AppColors.brandWhite,
-                        actionsAlignment: MainAxisAlignment.center,
-                        title: const Text(
-                          'Are you sure you want to logout?',
-                          style: TT.f16w700,
-                          textAlign: TextAlign.center,
-                        ),
-                        actions: [
-                          TextButton.icon(
-                              onPressed: () async {
-                                await AuthService().signOut();
-                                if (context.mounted) {
-                                  context.pop();
-                                  context.goNamed(AppRouteConstant.loginScreen);
-                                }
-                              },
-                              icon: const Icon(
-                                Icons.logout_rounded,
-                                color: AppColors.warningRed,
-                              ),
-                              label: Text(
-                                'Logout',
-                                style: TT.f16w800
-                                    .copyWith(color: AppColors.warningRed),
-                              ))
-                        ],
-                      ));
-            },
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  border: Border.all(color: AppColors.borderGreyColor),
-                  borderRadius: BorderRadius.circular(12)),
-              child: const Icon(
-                Icons.more_horiz_rounded,
-                color: AppColors.brandBlack,
-              ),
+        leading: GestureDetector(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      backgroundColor: AppColors.brandWhite,
+                      iconColor: AppColors.warningRed,
+                      alignment: Alignment.center,
+                      surfaceTintColor: AppColors.brandWhite,
+                      actionsAlignment: MainAxisAlignment.center,
+                      title: const Text(
+                        'Are you sure you want to logout?',
+                        style: TT.f16w700,
+                        textAlign: TextAlign.center,
+                      ),
+                      actions: [
+                        Consumer(builder: (context, ref, _) {
+                          final authProv = ref.watch(authProvider);
+                          return CustomButton(
+                            customButtonColor: AppColors.warningRed,
+                            isLoading: authProv,
+                            buttonText: 'Logout',
+                            function: () {
+                              ref
+                                  .read(authProvider.notifier)
+                                  .logout(context: context);
+                            },
+                          );
+                        })
+                      ],
+                    ));
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                border: Border.all(color: AppColors.borderGreyColor),
+                borderRadius: BorderRadius.circular(12)),
+            child: const Icon(
+              Icons.more_horiz_rounded,
+              color: AppColors.brandBlack,
             ),
-          );
-        }),
+          ),
+        ),
         title: const Text('THOUGHTS'),
       ),
       floatingActionButton: FloatingActionButton.small(

@@ -49,10 +49,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const Text('LOGIN', style: TT.f28w700),
                 const SizedBox(height: 25),
                 const Text(
-                  'Unlock your thoughts with a single login - your notes, your world, securely accessible.',
-                  style: TT.f14w400,
-                ),
-                const SizedBox(height: 15),
+                    'Unlock your thoughts with a single login\nyour notes, your world, securely accessible.',
+                    style: TT.f14w400,
+                    textAlign: TextAlign.center),
+                const SizedBox(height: 25),
                 CustomTextField(
                   label: 'Email',
                   editingController: emailController,

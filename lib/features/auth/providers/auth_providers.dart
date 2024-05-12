@@ -43,8 +43,7 @@ class AuthProvider extends StateNotifier<bool> {
       required String password}) async {
     try {
       state = true;
-       await AuthService().signUpNewUser(
-            email, password, name);
+      await AuthService().signUpNewUser(email, password, name);
       context.goNamed(AppRouteConstant.homeScreen);
       state = false;
     } on AuthException catch (e) {
@@ -55,5 +54,18 @@ class AuthProvider extends StateNotifier<bool> {
     }
   }
 
-  
+  logout({required BuildContext context}) async {
+    try {
+      state = true;
+      await AuthService().signOut();
+      context.pop();
+      context.goNamed(AppRouteConstant.loginScreen);
+      state = false;
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    } finally {
+      state = false;
+    }
+  }
 }
