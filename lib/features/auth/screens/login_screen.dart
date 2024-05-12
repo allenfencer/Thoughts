@@ -49,7 +49,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const Text('LOGIN', style: TT.f28w700),
                 const SizedBox(height: 25),
                 const Text(
-                  'We are happy to see you here again, Enter your email address and password.',
+                  'Unlock your thoughts with a single login - your notes, your world, securely accessible.',
                   style: TT.f14w400,
                 ),
                 const SizedBox(height: 15),

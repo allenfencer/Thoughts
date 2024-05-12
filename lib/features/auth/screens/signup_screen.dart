@@ -44,7 +44,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 const Text('Signup ', style: TT.f28w700),
                 const SizedBox(height: 25),
                 const Text(
-                  'We are happy to see you here again, Enter your email address and password.',
+                  'Start capturing your ideas effortlessly - sign up now and let your notes find a home.',
                   style: TT.f14w400,
                 ),
                 const SizedBox(height: 15),
