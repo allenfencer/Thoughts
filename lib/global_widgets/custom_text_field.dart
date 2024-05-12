@@ -34,7 +34,7 @@ class CustomTextField extends StatefulWidget {
     this.label,
     this.enabled = true,
     this.isPassword = false,
-    Key? key,
+    super.key,
     this.maxLines,
     this.obscureText = false,
     this.inputFormatters,
@@ -57,7 +57,7 @@ class CustomTextField extends StatefulWidget {
     this.suffix,
     this.prefixIcon,
     this.autofocus = false,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();

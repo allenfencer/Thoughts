@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:thoughts/features/auth/services/auth_service.dart';
 import 'package:thoughts/features/home/providers/notes_provider.dart';
 import 'package:thoughts/features/home/services/notes_service.dart';
 import 'package:thoughts/global_widgets/custom_shimmer.dart';
